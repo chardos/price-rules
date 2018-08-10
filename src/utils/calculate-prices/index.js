@@ -1,6 +1,7 @@
 import objectMap from 'object.map';
 import getByPath from 'lodash.get';
 import { UNILEVER, APPLE, NIKE, FORD, STANDARD_PRICES } from '../../constants';
+import { buyXGetY, dropTo, buyXDropTo } from './price-rules';
 
 export default function calculatePrices (company, adQuantities) {
     let priceInfo = addStandardPrices(adQuantities, STANDARD_PRICES)
@@ -52,20 +53,6 @@ const addTotals = (priceInfo) => {
         subtotals: priceInfo.subtotals,
         total
     }
-}
-
-export const buyXGetY = ({x, y}) => ({quantity, originalPrice}) => {
-    const leftOver = quantity % y;
-    const numDiscounts = Math.floor(quantity / y);
-    const discountedProductQuantity = numDiscounts * x + leftOver;
-    return discountedProductQuantity * originalPrice;
-}
-
-export const dropTo = ({discountedPrice}) => ({quantity}) => discountedPrice * quantity
-export const buyXDropTo = ({discountedPrice, requiredQuantity}) => ({quantity, originalPrice}) => {
-    return (quantity >= requiredQuantity)
-        ? discountedPrice * quantity
-        : originalPrice * quantity;
 }
 
 const pricingRules = {
