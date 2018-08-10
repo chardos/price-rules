@@ -4,11 +4,11 @@ import { UNILEVER, APPLE, NIKE, FORD, STANDARD_PRICES } from '../../constants';
 
 export default function calculatePrices (company, adQuantities) {
     let priceInfo = addStandardPrices(adQuantities, STANDARD_PRICES)
-    console.log("priceInfo", priceInfo)
     priceInfo = addDiscounts(adQuantities, company, priceInfo)
-    console.log("priceInfo", priceInfo)
     priceInfo = addTotals(priceInfo)
     console.log("totals", priceInfo)
+
+    return priceInfo
 }
 
 
@@ -26,7 +26,7 @@ const addDiscounts = (adQuantities, company, priceInfo) => {
             if (pricingRule) {
                 const discountedPrice = pricingRule({
                     quantity: adQuantities[productName],
-                    price: STANDARD_PRICES[productName]
+                    originalPrice: STANDARD_PRICES[productName]
                 });
 
                 return {
@@ -54,17 +54,26 @@ const addTotals = (priceInfo) => {
     }
 }
 
-export const buyXGetY = ({x, y}) => ({quantity, price}) => {
+export const buyXGetY = ({x, y}) => ({quantity, originalPrice}) => {
     const leftOver = quantity % y;
     const numDiscounts = Math.floor(quantity / y);
     const discountedProductQuantity = numDiscounts * x + leftOver;
-    return discountedProductQuantity * price;
+    return discountedProductQuantity * originalPrice;
 }
 
+export const dropTo = ({discountedPrice}) => ({quantity}) => discountedPrice * quantity
+export const buyXDropTo = ({discountedPrice, requiredQuantity}) => ({quantity, originalPrice}) => {
+    return (quantity >= requiredQuantity)
+        ? discountedPrice * quantity
+        : originalPrice * quantity;
+}
 
 const pricingRules = {
     [UNILEVER]: {
         classic: buyXGetY({x: 2, y: 3})
+    },
+    [APPLE]: {
+        standout: dropTo({discountedPrice: 299.99})
     }
 }
 
