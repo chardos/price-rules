@@ -1,7 +1,7 @@
 import objectMap from 'object.map';
 import getByPath from 'lodash.get';
 import { UNILEVER, APPLE, NIKE, FORD, STANDARD_PRICES } from '../../constants';
-import { buyXGetY, dropTo, buyXDropTo } from './price-rules';
+import priceRules from './price-rules';
 
 export default function calculatePrices (company, adQuantities) {
     let priceInfo = addStandardPrices(adQuantities, STANDARD_PRICES)
@@ -22,7 +22,7 @@ export const addStandardPrices = (adQuantities) => {
 const addDiscounts = (adQuantities, company, priceInfo) => {
     return {
         subtotals: objectMap(priceInfo.subtotals, (price, productName) => {
-            const pricingRule = getByPath(pricingRules, `${company}.${productName}`);
+            const pricingRule = getByPath(priceRules, `${company}.${productName}`);
 
             if (pricingRule) {
                 const discountedPrice = pricingRule({
@@ -54,16 +54,6 @@ const addTotals = (priceInfo) => {
         total
     }
 }
-
-const pricingRules = {
-    [UNILEVER]: {
-        classic: buyXGetY({x: 2, y: 3})
-    },
-    [APPLE]: {
-        standout: dropTo({discountedPrice: 299.99})
-    }
-}
-
 
 
 // example price structure

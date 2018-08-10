@@ -1,4 +1,4 @@
-import { addStandardPrices, buyXGetY, buyXDropTo } from './price-rules.js';
+import { addStandardPrices, buyXGetY, buyXDropTo } from './discounters.js';
 
 describe('buyXGetY({x, y})({quantity, originalPrice})', () => {
     const tests = [
