@@ -52,7 +52,7 @@ export default class MainContent extends React.Component {
         const {name, value} = event.target;
         const quantities = {
             ...this.state.quantities,
-            [name]: parseInt(value)
+            [name]: parseInt(value, 10)
         };
         this.setState({quantities});
     }
@@ -78,6 +78,7 @@ export default class MainContent extends React.Component {
                         {
                             productTypes.map(productType => (
                                 <ProductInputGroup
+                                    key={productType}
                                     productType={productType}
                                     price={standardPrices[productType]}
                                     value={quantities[productType]}

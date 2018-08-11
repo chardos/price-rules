@@ -1,23 +1,32 @@
-import { UNILEVER, APPLE, NIKE, FORD, standardPrices } from '../../constants';
+import {
+    UNILEVER,
+    APPLE,
+    NIKE,
+    FORD,
+    CLASSIC,
+    STANDOUT,
+    PREMIUM
+} from '../../constants';
+
 import { buyXGetY, dropTo, buyXDropTo } from './discounters';
 
 const priceRules = {
     [UNILEVER]: {
-        classic: buyXGetY({x: 2, y: 3})
+        [CLASSIC]: buyXGetY({x: 2, y: 3})
     },
     [APPLE]: {
-        standout: dropTo({discountedPrice: 299.99})
+        [STANDOUT]: dropTo({discountedPrice: 299.99})
     },
     [NIKE]: {
-        premium: buyXDropTo({
+        [PREMIUM]: buyXDropTo({
             requiredQuantity: 4,
             discountedPrice: 379.99
         })
     },
     [FORD]: {
-        classic: buyXGetY({x: 4, y: 5}),
-        standout: dropTo({discountedPrice: 309.99}),
-        premium: buyXDropTo({
+        [CLASSIC]: buyXGetY({x: 4, y: 5}),
+        [STANDOUT]: dropTo({discountedPrice: 309.99}),
+        [PREMIUM]: buyXDropTo({
             requiredQuantity: 3,
             discountedPrice: 389.99
         })

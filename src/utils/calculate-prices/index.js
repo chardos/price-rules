@@ -1,6 +1,6 @@
 import objectMap from 'object.map';
 import getByPath from 'lodash.get';
-import { UNILEVER, APPLE, NIKE, FORD, standardPrices } from '../../constants';
+import { standardPrices } from '../../constants';
 import { cleanQty } from '../misc';
 import priceRules from './price-rules';
 

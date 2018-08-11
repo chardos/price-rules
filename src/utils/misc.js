@@ -11,7 +11,7 @@ export const toTitleCase = (str) => {
 }
 
 // Handle NaN's coming from inputs
-export const cleanQty = qty => (parseInt(qty) || 0)
+export const cleanQty = qty => (parseInt(qty, 10) || 0)
 
 export const toFixed = (num) => num.toFixed(2)
 export const dollarize = (num) => `$${num}`;
