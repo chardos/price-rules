@@ -1,4 +1,4 @@
-import { UNILEVER, APPLE, NIKE, FORD, STANDARD_PRICES } from '../../constants';
+import { UNILEVER, APPLE, NIKE, FORD, standardPrices } from '../../constants';
 import calculatePrices, {
     addStandardPrices,
     buyXGetY,
@@ -58,7 +58,7 @@ describe('addStandardPrices(adQuantities, standardPrices)', () => {
             standout: 2,
             premium: 3
         }
-        const result = addStandardPrices(adQuantities, STANDARD_PRICES)
+        const result = addStandardPrices(adQuantities, standardPrices)
         expect(result).toEqual({subtotals: {
             classic: 539.98,
             standout: 645.98,

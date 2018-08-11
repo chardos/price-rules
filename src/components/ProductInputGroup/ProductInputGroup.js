@@ -34,9 +34,9 @@ const QuantityInput = Input.extend`
 const ProductInputGroup = (props) => (
     <ProductInputGroupWrapper>
         <ProductType>{toTitleCase(props.productType)}</ProductType>
-        <Price>$269.99</Price>
+        <Price>{props.price}</Price>
         <QuantityLabel>Qty</QuantityLabel>
-        <QuantityInput type="number" />
+        <QuantityInput type="number" value={props.value} />
     </ProductInputGroupWrapper>
 )
 

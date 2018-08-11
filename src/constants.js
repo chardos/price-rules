@@ -9,8 +9,9 @@ export const companyNames = [UNILEVER, APPLE, NIKE, FORD];
 export const CLASSIC = 'classic';
 export const STANDOUT = 'standout';
 export const PREMIUM = 'premium';
+export const productTypes = [CLASSIC, STANDOUT, PREMIUM];
 
-export const STANDARD_PRICES = {
+export const standardPrices = {
     [CLASSIC]: 269.99,
     [STANDOUT]: 322.99,
     [PREMIUM]: 394.99

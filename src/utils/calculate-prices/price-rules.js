@@ -1,4 +1,4 @@
-import { UNILEVER, APPLE, NIKE, FORD, STANDARD_PRICES } from '../../constants';
+import { UNILEVER, APPLE, NIKE, FORD, standardPrices } from '../../constants';
 import { buyXGetY, dropTo, buyXDropTo } from './discounters';
 
 const priceRules = {

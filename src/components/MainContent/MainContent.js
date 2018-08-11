@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Wrapper } from '../Layout';
 import ProductInputGroup from '../ProductInputGroup';
-import { CLASSIC, STANDOUT, PREMIUM, companyNames } from '../../constants';
+import { CLASSIC, STANDOUT, PREMIUM, standardPrices, companyNames, productTypes } from '../../constants';
 import { toTitleCase } from '../../utils/misc';
 
 const MainContentWrapper = styled.main`
@@ -18,30 +18,54 @@ const Select = styled.select`
     width: 250px;
 `
 
-const MainContent = () => (
-    <Wrapper maxWidth={600}>
-        <MainContentWrapper>
-            <form>
-                <SubTitle>Company</SubTitle>
-                <Select name="company">
-                    {
-                        companyNames.map(companyName =>
-                            <option key={companyName} value={companyName}>
-                                {toTitleCase(companyName)}
-                            </option>
-                        )
-                    }
-                </Select>
+export default class MainContent extends React.Component {
+    state = {
+        company: 'unilever',
+        quantities: {
+            [CLASSIC]: 0,
+            [STANDOUT]: 0,
+            [PREMIUM]: 0
+        }
+    }
 
-                <SubTitle>Ads</SubTitle>
-                <ProductInputGroup productType={CLASSIC} price={269.99} />
-                <ProductInputGroup productType={STANDOUT} price={269.99} />
-                <ProductInputGroup productType={PREMIUM} price={269.99} />
+    _updateCompany = (event) => {
+        this.setState({company: event.target.value})
+    }
 
-            </form>
-        </MainContentWrapper>
-    </Wrapper>
-)
+    // _updateQuantity = (productType, quantity) => {
+    //     this.setState({company: event.target.value})
+    // }
 
+    render() {
+        const { quantities } = this.state;
 
-export default MainContent;
+        return (
+            <Wrapper maxWidth={600}>
+                <MainContentWrapper>
+                    <form>
+                        <SubTitle>Company</SubTitle>
+                        <Select name="company" onChange={this._updateCompany}>
+                            {companyNames.map(companyName =>
+                                <option key={companyName} value={companyName}>
+                                    {toTitleCase(companyName)}
+                                </option>
+                            )}
+                        </Select>
+
+                        <SubTitle>Ads</SubTitle>
+                        {
+                            productTypes.map(productType => (
+                                <ProductInputGroup
+                                    productType={productType}
+                                    price={standardPrices[productType]}
+                                    value={quantities[productType]}
+                                />
+                            ))
+                        }
+                    </form>
+                </MainContentWrapper>
+            </Wrapper>
+        );
+    }
+
+}

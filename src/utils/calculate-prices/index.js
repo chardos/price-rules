@@ -1,10 +1,10 @@
 import objectMap from 'object.map';
 import getByPath from 'lodash.get';
-import { UNILEVER, APPLE, NIKE, FORD, STANDARD_PRICES } from '../../constants';
+import { UNILEVER, APPLE, NIKE, FORD, standardPrices } from '../../constants';
 import priceRules from './price-rules';
 
 export default function calculatePrices (company, adQuantities) {
-    let priceInfo = addStandardPrices(adQuantities, STANDARD_PRICES)
+    let priceInfo = addStandardPrices(adQuantities, standardPrices)
     priceInfo = addDiscounts(adQuantities, company, priceInfo)
     priceInfo = addTotals(priceInfo)
     console.log("totals", priceInfo)
@@ -15,7 +15,7 @@ export default function calculatePrices (company, adQuantities) {
 
 export const addStandardPrices = (adQuantities) => {
     return {
-        subtotals: objectMap(adQuantities, (qty, key) => parseInt(qty) * STANDARD_PRICES[key])
+        subtotals: objectMap(adQuantities, (qty, key) => parseInt(qty) * standardPrices[key])
     }
 }
 
@@ -27,7 +27,7 @@ const addDiscounts = (adQuantities, company, priceInfo) => {
             if (pricingRule) {
                 const discountedPrice = pricingRule({
                     quantity: adQuantities[productName],
-                    originalPrice: STANDARD_PRICES[productName]
+                    originalPrice: standardPrices[productName]
                 });
 
                 return {
