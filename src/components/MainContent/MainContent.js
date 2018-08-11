@@ -22,7 +22,8 @@ const SubTitle = styled.h2`
 `
 
 const Select = styled.select`
-    width: 250px;
+    max-width: 240px;
+    width: 100%;
 `
 
 const Total = styled.div`
@@ -80,7 +81,7 @@ export default class MainContent extends React.Component {
                                 <ProductInputGroup
                                     key={productType}
                                     productType={productType}
-                                    price={standardPrices[productType]}
+                                    price={displayPrice(standardPrices[productType])}
                                     value={quantities[productType]}
                                     onChange={this._updateQuantity}
                                 />
@@ -99,5 +100,4 @@ export default class MainContent extends React.Component {
             </Wrapper>
         );
     }
-
 }

@@ -9,11 +9,26 @@ const ProductInputGroupWrapper = styled.div`
     justify-content: space-between;
     padding: 15px 0;
     border-top: 1px solid #eee;
+
+    @media screen and (max-width: 480px) {
+        display: block;
+    }
 `
 
 const ProductType = styled.div`
     font-size: 20px;
-    flex: 1;
+    flex: 2;
+
+    @media screen and (max-width: 480px) {
+        margin-bottom: 5px;
+    }
+`
+
+const PriceWrap = styled.div`
+    display: flex;
+    flex: 3;
+    align-items: center;
+    justify-content: space-between;
 `
 
 const Price = styled.div`
@@ -27,21 +42,23 @@ const QuantityLabel = styled.label`
 
 const QuantityInput = Input.extend`
     text-align: center;
-    width: 50px;
+    width: 80px;
 `
 
-const ProductInputGroup = (props) => (
+const ProductInputGroup = ({productType, price, value, onChange}) => (
     <ProductInputGroupWrapper>
-        <ProductType>{toTitleCase(props.productType)}</ProductType>
-        <Price>{props.price}</Price>
-        <QuantityLabel>Qty</QuantityLabel>
-        <QuantityInput
-            type="number"
-            name={props.productType}
-            onChange={props.onChange}
-            value={props.value}
-            min="0"
-        />
+        <ProductType>{toTitleCase(productType)}</ProductType>
+        <PriceWrap>
+            <Price>{price}</Price>
+            <QuantityLabel>Qty</QuantityLabel>
+            <QuantityInput
+                type="number"
+                name={productType}
+                onChange={onChange}
+                value={value}
+                min="0"
+            />
+        </PriceWrap>
     </ProductInputGroupWrapper>
 )
 

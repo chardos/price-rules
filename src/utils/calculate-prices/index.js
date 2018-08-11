@@ -1,24 +1,29 @@
 import objectMap from 'object.map';
 import getByPath from 'lodash.get';
+import pipe from 'ramda.pipe';
 import { standardPrices } from '../../constants';
-import { cleanQty } from '../misc';
 import priceRules from './price-rules';
+import { cleanQty } from '../misc';
 
 export default function calculatePrices (company, adQuantities) {
-    let priceInfo = addStandardPrices(adQuantities, standardPrices)
-    priceInfo = addDiscounts(adQuantities, company, priceInfo)
-    priceInfo = addTotals(priceInfo)
-    return priceInfo
+    return (pipe(
+        addStandardPrices,
+        addDiscounts,
+        addTotals
+    )({adQuantities, company, standardPrices}));
 }
 
-
-export const addStandardPrices = (adQuantities) => {
+export const addStandardPrices = ({adQuantities, company, standardPrices}) => {
     return {
-        subtotals: objectMap(adQuantities, (qty, key) => (cleanQty(qty)) * standardPrices[key])
+        adQuantities,
+        company,
+        priceInfo: {
+            subtotals: objectMap(adQuantities, (qty, key) => (cleanQty(qty)) * standardPrices[key])
+        }
     }
 }
 
-const addDiscounts = (adQuantities, company, priceInfo) => {
+const addDiscounts = ({adQuantities, company, priceInfo}) => {
     return {
         subtotals: objectMap(priceInfo.subtotals, (price, productName) => {
             const pricingRule = getByPath(priceRules, `${company}.${productName}`);
@@ -53,7 +58,7 @@ const addTotals = (priceInfo) => {
     }, 0)
 
     return {
-        subtotals: priceInfo.subtotals,
+        ...priceInfo,
         total,
         totalDiscount
     }

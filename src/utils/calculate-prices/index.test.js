@@ -51,14 +51,14 @@ describe('calculatePrices(company, adQuantities)', () => {
     })
 })
 
-describe('addStandardPrices(adQuantities, standardPrices)', () => {
+describe('addStandardPrices({adQuantities, company, standardPrices})', () => {
     it('should multiply the standardPrices by the adQuantities', () => {
         const adQuantities = {
             classic: 2,
             standout: 2,
             premium: 3
         }
-        const result = addStandardPrices(adQuantities, standardPrices)
+        const result = addStandardPrices({adQuantities, standardPrices}).priceInfo;
         expect(result).toEqual({subtotals: {
             classic: 539.98,
             standout: 645.98,
