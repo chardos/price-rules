@@ -32,9 +32,14 @@ export default class MainContent extends React.Component {
         this.setState({company: event.target.value})
     }
 
-    // _updateQuantity = (productType, quantity) => {
-    //     this.setState({company: event.target.value})
-    // }
+    _updateQuantity = (event) => {
+        const {name, value} = event.target;
+        const quantities = {
+            ...this.state.quantities,
+            [name]: parseInt(value)
+        };
+        this.setState({quantities});
+    }
 
     render() {
         const { quantities } = this.state;
@@ -59,6 +64,7 @@ export default class MainContent extends React.Component {
                                     productType={productType}
                                     price={standardPrices[productType]}
                                     value={quantities[productType]}
+                                    onChange={this._updateQuantity}
                                 />
                             ))
                         }
