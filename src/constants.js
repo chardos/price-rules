@@ -22,5 +22,5 @@ export const colors = {
     TEXT: '#1c1c1c',
     LIGHT_BLUE: '#2765cf',
     DARK_BLUE: '#0d3880',
-    BLOCK_GREY: '#eee'
+    PINK: '#e60278'
 }

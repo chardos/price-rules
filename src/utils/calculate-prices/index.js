@@ -1,21 +1,20 @@
 import objectMap from 'object.map';
 import getByPath from 'lodash.get';
 import { UNILEVER, APPLE, NIKE, FORD, standardPrices } from '../../constants';
+import { cleanQty } from '../misc';
 import priceRules from './price-rules';
 
 export default function calculatePrices (company, adQuantities) {
     let priceInfo = addStandardPrices(adQuantities, standardPrices)
     priceInfo = addDiscounts(adQuantities, company, priceInfo)
     priceInfo = addTotals(priceInfo)
-    console.log("totals", priceInfo)
-
     return priceInfo
 }
 
 
 export const addStandardPrices = (adQuantities) => {
     return {
-        subtotals: objectMap(adQuantities, (qty, key) => parseInt(qty) * standardPrices[key])
+        subtotals: objectMap(adQuantities, (qty, key) => (cleanQty(qty)) * standardPrices[key])
     }
 }
 
@@ -26,7 +25,7 @@ const addDiscounts = (adQuantities, company, priceInfo) => {
 
             if (pricingRule) {
                 const discountedPrice = pricingRule({
-                    quantity: adQuantities[productName],
+                    quantity: cleanQty(adQuantities[productName]),
                     originalPrice: standardPrices[productName]
                 });
 
@@ -49,36 +48,13 @@ const addTotals = (priceInfo) => {
         return acc + priceInfo.subtotals[curr].price;
     }, 0)
 
+    const totalDiscount = Object.keys(priceInfo.subtotals).reduce((acc, curr) => {
+        return acc + priceInfo.subtotals[curr].discount;
+    }, 0)
+
     return {
         subtotals: priceInfo.subtotals,
-        total
+        total,
+        totalDiscount
     }
-}
-
-
-// example price structure
-const adQuantities = {
-    classic: 3,
-    standout: 4,
-    premium: 2
-}
-
-// example output
-const output = {
-    subtotals: {
-        classic: {
-            price: 324.23,
-            discount: 0
-        },
-        standout: {
-            price: 524.23,
-            discount: 25.23
-        },
-        premium: {
-            price: 123.23,
-            discount: 0
-        }
-    },
-    total: 482.23,
-    totalDiscount: 123.12
 }

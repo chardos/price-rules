@@ -1,9 +1,11 @@
-import React from 'react';
 import styled from 'styled-components';
-import { Wrapper } from '../Layout';
+import React from 'react';
+
+import { CLASSIC, STANDOUT, PREMIUM, standardPrices, companyNames, productTypes, colors } from '../../constants';
+import calculatePrices from '../../utils/calculate-prices';
 import ProductInputGroup from '../ProductInputGroup';
-import { CLASSIC, STANDOUT, PREMIUM, standardPrices, companyNames, productTypes } from '../../constants';
-import { toTitleCase } from '../../utils/misc';
+import { toTitleCase, displayPrice } from '../../utils/misc';
+import { Wrapper } from '../Layout';
 
 const MainContentWrapper = styled.main`
     padding: 30px;
@@ -12,10 +14,24 @@ const MainContentWrapper = styled.main`
 
 const SubTitle = styled.h2`
     font-size: 24px;
+    margin-top: 30px;
+
+    &:first-child {
+        margin-top: 0;
+    }
 `
 
 const Select = styled.select`
     width: 250px;
+`
+
+const Total = styled.div`
+    font-size: 36px;
+    margin-bottom: 10px;
+`
+const TotalDiscount = styled.div`
+    font-size: 18px;
+    color: ${colors.PINK};
 `
 
 export default class MainContent extends React.Component {
@@ -42,7 +58,8 @@ export default class MainContent extends React.Component {
     }
 
     render() {
-        const { quantities } = this.state;
+        const { company, quantities } = this.state;
+        const {total, totalDiscount} = calculatePrices(company, quantities);
 
         return (
             <Wrapper maxWidth={600}>
@@ -68,6 +85,14 @@ export default class MainContent extends React.Component {
                                 />
                             ))
                         }
+
+                        <SubTitle>Total</SubTitle>
+                        <Total>
+                            {displayPrice(total)}
+                        </Total>
+                        {(totalDiscount !== 0) && <TotalDiscount>
+                                Discount: {displayPrice(totalDiscount)}
+                        </TotalDiscount>}
                     </form>
                 </MainContentWrapper>
             </Wrapper>

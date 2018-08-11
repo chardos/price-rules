@@ -36,7 +36,13 @@ const ProductInputGroup = (props) => (
         <ProductType>{toTitleCase(props.productType)}</ProductType>
         <Price>{props.price}</Price>
         <QuantityLabel>Qty</QuantityLabel>
-        <QuantityInput type="number" name={props.productType} onChange={props.onChange} value={props.value} />
+        <QuantityInput
+            type="number"
+            name={props.productType}
+            onChange={props.onChange}
+            value={props.value}
+            min="0"
+        />
     </ProductInputGroupWrapper>
 )
 
