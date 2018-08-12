@@ -62,6 +62,7 @@ export default class MainContent extends React.Component {
     render() {
         const { company, quantities } = this.state;
         const {total, totalDiscount} = calculatePrices(company, quantities);
+        const companyNamesWithNone = ['none', ...companyNames];
 
         return (
             <Wrapper maxWidth={600}>
@@ -69,7 +70,7 @@ export default class MainContent extends React.Component {
                     <form>
                         <SubTitle>Company</SubTitle>
                         <Select name="company" onChange={this._updateCompany}>
-                            {companyNames.map(companyName =>
+                            {companyNamesWithNone.map(companyName =>
                                 <option key={companyName} value={companyName}>
                                     {toTitleCase(companyName)}
                                 </option>
