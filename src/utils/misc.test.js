@@ -18,4 +18,10 @@ describe("addCommas(num, arr, fractional)", () => {
 
         expect(result).toEqual("1,234.23");
     });
+
+    it("should handle large numbers", () => {
+        const result = addCommas(1234567891234.23);
+
+        expect(result).toEqual("1,234,567,891,234.23");
+    });
 });

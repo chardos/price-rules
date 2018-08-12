@@ -5,6 +5,6 @@ const Input = styled.input`
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 3px;
-`
+`;
 
 export default Input;

@@ -10,7 +10,7 @@ import { Wrapper } from '../Layout';
 const MainContentWrapper = styled.main`
     padding: 30px;
     background-color: white;
-`
+`;
 
 const SubTitle = styled.h2`
     font-size: 24px;
@@ -19,17 +19,18 @@ const SubTitle = styled.h2`
     &:first-child {
         margin-top: 0;
     }
-`
+`;
 
 const Select = styled.select`
     max-width: 240px;
     width: 100%;
-`
+`;
 
 const Total = styled.div`
     font-size: 36px;
     margin-bottom: 10px;
-`
+`;
+
 const TotalDiscount = styled.div`
     font-size: 18px;
     color: ${colors.PINK};
@@ -43,11 +44,11 @@ export default class MainContent extends React.Component {
             [STANDOUT]: 0,
             [PREMIUM]: 0
         }
-    }
+    };
 
     _updateCompany = (event) => {
         this.setState({company: event.target.value})
-    }
+    };
 
     _updateQuantity = (event) => {
         const {name, value} = event.target;
@@ -56,7 +57,7 @@ export default class MainContent extends React.Component {
             [name]: value && parseInt(value, 10)
         };
         this.setState({quantities});
-    }
+    };
 
     render() {
         const { company, quantities } = this.state;

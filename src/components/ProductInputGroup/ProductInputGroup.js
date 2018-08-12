@@ -13,7 +13,7 @@ const ProductInputGroupWrapper = styled.div`
     @media screen and (max-width: 480px) {
         display: block;
     }
-`
+`;
 
 const ProductType = styled.div`
     font-size: 20px;
@@ -22,28 +22,28 @@ const ProductType = styled.div`
     @media screen and (max-width: 480px) {
         margin-bottom: 5px;
     }
-`
+`;
 
 const PriceWrap = styled.div`
     display: flex;
     flex: 3;
     align-items: center;
     justify-content: space-between;
-`
+`;
 
 const Price = styled.div`
     font-size: 20px;
     flex: 1;
-`
+`;
 
 const QuantityLabel = styled.label`
     margin-right: 5px;
-`
+`;
 
 const QuantityInput = Input.extend`
     text-align: center;
     width: 80px;
-`
+`;
 
 const ProductInputGroup = ({productType, price, value, onChange}) => (
     <ProductInputGroupWrapper>
@@ -60,7 +60,7 @@ const ProductInputGroup = ({productType, price, value, onChange}) => (
             />
         </PriceWrap>
     </ProductInputGroupWrapper>
-)
+);
 
 
 export default ProductInputGroup;

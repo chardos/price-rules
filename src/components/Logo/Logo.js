@@ -6,7 +6,7 @@ const Logo = (props) => (
 
 Logo.defaultProps = {
     width: 240
-}
+};
 
 
 export default Logo;
