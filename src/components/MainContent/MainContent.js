@@ -53,7 +53,7 @@ export default class MainContent extends React.Component {
         const {name, value} = event.target;
         const quantities = {
             ...this.state.quantities,
-            [name]: parseInt(value, 10)
+            [name]: value && parseInt(value, 10)
         };
         this.setState({quantities});
     }
