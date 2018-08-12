@@ -57,6 +57,7 @@ const ProductInputGroup = ({productType, price, value, onChange}) => (
                 onChange={onChange}
                 value={value}
                 min="0"
+                aria-label={`Quantity of ${productType}`}
             />
         </PriceWrap>
     </ProductInputGroupWrapper>
